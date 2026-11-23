@@ -1,6 +1,7 @@
 # MAiDE-up reproduction - Data + TF-IDF baseline
 
 CSCI 3052U Independent Activity (Hacker / Implementer role)
+
 Paper: [Ignat, Xu & Mihalcea (2025). *MAiDE-up: Multilingual Deception Detection of AI-generated Hotel Reviews*. Findings of NAACL 2025.](https://aclanthology.org/2025.findings-naacl.88/)
 
 Dataset: Authors' public repo: [MichiganNLP/multilingual_reviews_deception](https://github.com/MichiganNLP/multilingual_reviews_deception)

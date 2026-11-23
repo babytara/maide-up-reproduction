@@ -1,6 +1,7 @@
 scikit-learn==1.6.1
 pandas==2.2.3
 numpy==2.4.6
+torch==2.14.1
 transformers==5.22.1
 datasets==4.8.5
-matplotlib
+matplotlib==3.10.0

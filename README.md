@@ -1,4 +1,4 @@
-# MAiDE-up reproduction - Data + TF-IDF baseline
+# # MAiDE-up Reproduction
 
 CSCI 3052U Independent Activity (Hacker / Implementer role)
 
@@ -10,7 +10,7 @@ Dataset: Authors' public repo: [MichiganNLP/multilingual_reviews_deception](http
 ## Repo structure 
 ```
 maide-up-reproduction/
-├── 01_data_and_baseline.ipynb   # data checks, cleaning, split, TF-IDF + Naive Bayes / Random Forest
+├── 01_Data_and_Baseline.ipynb   # data checks, cleaning, split, TF-IDF + Naive Bayes / Random Forest
 ├── 02_xlmr.ipynb                # XLM-RoBERTa fine-tuning: full run, few-shot run, per-language results
 ├── requirements.txt
 └── README.md
@@ -22,7 +22,7 @@ maide-up-reproduction/
 2. **Data checks** `Prompt_Language` contains 100% of fake reviews and 0% of real ones, so I dropped it as a feature. The real reviews had upside or downside half blank much more often than fake reviews. I tested this separately in step 6.
 3. **Data cleaning** I combined the upside and downside halves into one column - `text`. Only `text`, `label`, `Review_Language` and `Sentiment` were kept. Hotel and city names were dropped.
 4. **Data split** 80/20 split was used into train and test, stratified by label and language, the seed is 42, that resulted in 15,988 train and 3,997 test each. Both notebooks used the same split to rebuild.
-5. **TF-IDF baselines** (Notebook 01): Word-level and Character-level TF-IDF with Multinomial Naive Bayes and Random Forest was used.
+5. **TF-IDF baselines** (Notebook 01): Word-level and Character-level TF-IDF with Multinomial Naive Bayes and Random Forest were used.
 6. **Leakage test** (Notebook 01): Logistic Regression trained only on "is the upside / downside half blank?".
 7. **XLM-RoBERTa** (Notebook 02): 10% of the training set was held out for validation, the split was 14,389 / 1,599, I fine-tuned for 5 epochs, then selected the best epoch and picked by validation accuracy, evaluated on the 3,997 test reviews.
 8. **Few-shot** (Notebook 02): A fresh XLM-R was trained on 200 reviews, 10 real + 10 fake for each language, tested on the same test set.
@@ -31,10 +31,11 @@ maide-up-reproduction/
 ## How to reproduce results
 
 1. Open a new notebook in Google Colab
-2. Choose the runtime for the notebook:
+2. Upload the notebooks to Google Colab (File → Upload notebook)
+3. Choose the runtime for the notebook:
    - `01_data_and_baseline.ipynb`: CPU is sufficient. Takes a few minutes to rebuild.
-   - `02_xlmr.ipynb`: Change runtime type the run time to **T4 GPU**. The full training run takes about 25 minutes.
-3. Run all cells from top to bottom. The first code cell clones the authors' data from their repository.
+   - `02_xlmr.ipynb`: Change the runtime type to **T4 GPU**. The full training run takes about 25 minutes.
+4. Run all cells from top to bottom. The first code cell clones the authors' data from their repository.
 
 **To run locally on your computer:**
 `pip install -r requirements.txt`, then open the notebooks in Jupyter/a code IDE. Notebook 02 requires a CUDA GPU.
@@ -107,6 +108,8 @@ Each language has about 400 test reviews, so one review is weights about 0.25 pe
 - The XLM-R model is still not perfectly reproducible on a GPU. Running the exact same code twice produced 97.35% accuracy on one run and 97.32% on another. This happens because mixed-precision training can introduce small numerical differences. Using full_determinism=True would make the results fully repeatable, but training would take longer. The results reported here are from the second run, which is the version saved in the notebook.
 - I only evaluated a single seed. Testing multiple seeds would provide a better picture of how consistent the results are and how meaningful the gap to the paper really is.
 - All package versions are listed in requirements.txt, and training was done on a free Google Colab T4 GPU.
+
+Versions are from the Google Colab environment used for this project (November 2026). Colab used the CUDA 13.0 build of torch (2.14.1+cu130).
 
 ## Citation
 

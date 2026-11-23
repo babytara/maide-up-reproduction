@@ -1,4 +1,4 @@
-# # MAiDE-up Reproduction
+# MAiDE-up Reproduction
 
 CSCI 3052U Independent Activity (Hacker / Implementer role)
 
